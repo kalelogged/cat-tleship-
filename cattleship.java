@@ -1,28 +1,28 @@
 import java.util.*;
 
 public class cattleship {
-    public static int numRows = 10;
-    public static int numCols = 10;
-    public static int playerShips;
-    public static int computerShips;
-    public static String[][] grid = new String[numRows][numCols];
-    public static int[][] missedGuesses = new int[numRows][numCols];
+    public static int rows = 10;
+    public static int cols = 10;
+    public static int playerCats;
+    public static int computerCats;
+    public static String[][] grid = new String[rows][cols];
+    public static int[][] missedGuesses = new int[rows][cols];
 
     public static void main(String[] args){
         createOceanMap();
-        deployPlayerShips();
-        deployComputerShips();
+        deployPlayerCats();
+        deployComputerCats();
 
         do {
-            Battle();
-        }while(cattleship.playerShips != 0 && cattleship.computerShips != 0);
+            Cattle();
+        }while(cattleship.playerCats != 0 && cattleship.computerCats != 0);
 
         gameOver();
     }
 
     public static void createOceanMap(){
         System.out.print("  ");
-        for(int i = 0; i < numCols; i++)
+        for(int i = 0; i < cols; i++)
                 System.out.print(i);
         System.out.println();
 
@@ -40,62 +40,62 @@ public class cattleship {
         }
 
         System.out.print("  ");
-        for(int i = 0; i < numCols; i++)
+        for(int i = 0; i < cols; i++)
             System.out.print(i);
         System.out.println();
     }
 
-    public static void deployPlayerShips(){
+    public static void deployPlayerCats(){
         Scanner input = new Scanner(System.in);
 
-        System.out.println("\nDeploy your ships:");
+        System.out.println("\nposition your cats:");
         
-        cattleship.playerShips = 5;
-        for (int i = 1; i <= cattleship.playerShips; ) {
-            System.out.print("Enter X coordinate for your " + i + " ship: ");
+        cattleship.playerCats = 5;
+        for (int i = 1; i <= cattleship.playerCats; ) {
+            System.out.print("enter the X coordinate for your " + i + " cat: ");
             int x = input.nextInt();
-            System.out.print("Enter Y coordinate for your " + i + " ship: ");
+            System.out.print("enter the Y coordinate for your " + i + " cat: ");
             int y = input.nextInt();
 
-            if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))
+            if((x >= 0 && x < rows) && (y >= 0 && y < cols) && (grid[x][y] == " "))
             {
                 grid[x][y] =   "@";
                 i++;
             }
-            else if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && grid[x][y] == "@")
-                System.out.println("You can't place two or more ships on the same location");
-            else if((x < 0 || x >= numRows) || (y < 0 || y >= numCols))
-                System.out.println("You can't place ships outside the " + numRows + " by " + numCols + " grid");
+            else if((x >= 0 && x < rows) && (y >= 0 && y < cols) && grid[x][y] == "@")
+                System.out.println("you can't place two or more cats on the same location");
+            else if((x < 0 || x >= rows) || (y < 0 || y >= cols))
+                System.out.println("you can't place cats outside the " + rows + " by " + cols + " grid");
         }
         printOceanMap();
     }
 
-    public static void deployComputerShips(){
-        System.out.println("\nComputer is deploying ships");
+    public static void deployComputerCats(){
+        System.out.println("\ncomputer is positioning cats");
         
-        cattleship.computerShips = 5;
-        for (int i = 1; i <= cattleship.computerShips; ) {
+        cattleship.computerCats = 5;
+        for (int i = 1; i <= cattleship.computerCats; ) {
             int x = (int)(Math.random() * 10);
             int y = (int)(Math.random() * 10);
 
-            if((x >= 0 && x < numRows) && (y >= 0 && y < numCols) && (grid[x][y] == " "))
+            if((x >= 0 && x < rows) && (y >= 0 && y < cols) && (grid[x][y] == " "))
             {
                 grid[x][y] =   "x";
-                System.out.println(i + ". ship DEPLOYED");
+                System.out.println(i + ". cat DEPLOYED");
                 i++;
             }
         }
         printOceanMap();
     }
 
-    public static void Battle(){
+    public static void Cattle(){
         playerTurn();
         computerTurn();
 
         printOceanMap();
 
         System.out.println();
-        System.out.println("Your ships: " + cattleship.playerShips + " | Computer ships: " + cattleship.computerShips);
+        System.out.println("your cats: " + cattleship.playerCats + " | computer cats: " + cattleship.computerCats);
         System.out.println();
     }
 
@@ -109,28 +109,28 @@ public class cattleship {
             System.out.print("Enter Y coordinate: ");
             y = input.nextInt();
 
-            if ((x >= 0 && x < numRows) && (y >= 0 && y < numCols))
+            if ((x >= 0 && x < rows) && (y >= 0 && y < cols))
             {
                 if (grid[x][y] == "x")
                 {
-                    System.out.println("Boom! You sunk the ship!");
+                    System.out.println("you fed da cat");
                     grid[x][y] = "!";
-                    --cattleship.computerShips;
+                    --cattleship.computerCats;
                 }
                 else if (grid[x][y] == "@") {
-                    System.out.println("Oh no, you sunk your own ship :(");
+                    System.out.println("RIP BOZO");
                     grid[x][y] = "x";
-                    --cattleship.playerShips;
-                    ++cattleship.computerShips;
+                    --cattleship.playerCats;
+                    ++cattleship.computerCats;
                 }
                 else if (grid[x][y] == " ") {
-                    System.out.println("Sorry, you missed");
+                    System.out.println("L + you missed");
                     grid[x][y] = "-";
                 }
             }
-            else if ((x < 0 || x >= numRows) || (y < 0 || y >= numCols))
-                System.out.println("You can't place ships outside the " + numRows + " by " + numCols + " grid");
-        }while((x < 0 || x >= numRows) || (y < 0 || y >= numCols));
+            else if ((x < 0 || x >= rows) || (y < 0 || y >= cols))
+                System.out.println("you can't place cats outside the " + rows + " by " + cols + " grid");
+        }while((x < 0 || x >= rows) || (y < 0 || y >= cols));
     }
 
     public static void computerTurn(){
@@ -141,34 +141,34 @@ public class cattleship {
             x = (int)(Math.random() * 10);
             y = (int)(Math.random() * 10);
 
-            if ((x >= 0 && x < numRows) && (y >= 0 && y < numCols))
+            if ((x >= 0 && x < rows) && (y >= 0 && y < cols))
             {
                 if (grid[x][y] == "@")
                 {
-                    System.out.println("The Computer sunk one of your ships!");
+                    System.out.println("the computer fed your cat");
                     grid[x][y] = "x";
-                    --cattleship.playerShips;
-                    ++cattleship.computerShips;
+                    --cattleship.playerCats;
+                    ++cattleship.computerCats;
                 }
                 else if (grid[x][y] == "x") {
-                    System.out.println("The Computer sunk one of its own ships");
+                    System.out.println("the computer is A BOZO");
                     grid[x][y] = "!";
                 }
                 else if (grid[x][y] == " ") {
-                    System.out.println("Computer missed");
+                    System.out.println("L + computer missed");
                     if(missedGuesses[x][y] != 1)
                         missedGuesses[x][y] = 1;
                 }
             }
-        }while((x < 0 || x >= numRows) || (y < 0 || y >= numCols));
+        }while((x < 0 || x >= rows) || (y < 0 || y >= cols));
     }
 
     public static void gameOver(){
-        System.out.println("Your ships: " + cattleship.playerShips + " | Computer ships: " + cattleship.computerShips);
-        if(cattleship.playerShips > 0 && cattleship.computerShips <= 0)
-            System.out.println("Hooray! You won the battle :)");
+        System.out.println("your cats: " + cattleship.playerCats + " | computer cats: " + cattleship.computerCats);
+        if(cattleship.playerCats > 0 && cattleship.computerCats <= 0)
+            System.out.println("you won the CAT tle =^._.^= ∫");
         else
-            System.out.println("Sorry, you lost the battle");
+            System.out.println("you lost the CAT tle BOZO (ﾐΦ ﻌ Φﾐ)∫");
         System.out.println();
    }
 
@@ -176,7 +176,7 @@ public class cattleship {
         System.out.println();
       
         System.out.print("  ");
-        for(int i = 0; i < numCols; i++)
+        for(int i = 0; i < cols; i++)
             System.out.print(i);
         System.out.println();
 
@@ -191,7 +191,7 @@ public class cattleship {
         }
 
         System.out.print("  ");
-        for(int i = 0; i < numCols; i++)
+        for(int i = 0; i < cols; i++)
             System.out.print(i);
         System.out.println();
     }
