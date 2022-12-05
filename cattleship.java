@@ -15,7 +15,8 @@ public class cattleship {
 
         do {
             Cattle();
-        }while(cattleship.playerCats != 0 && cattleship.computerCats != 0);
+        }
+        while(cattleship.playerCats != 0 && cattleship.computerCats != 0);
 
         gameOver();
     }
