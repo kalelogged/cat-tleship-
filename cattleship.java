@@ -53,9 +53,9 @@ public class cattleship {
         
         cattleship.playerCats = 5;
         for (int i = 1; i <= cattleship.playerCats; ) {
-            System.out.print("enter the X coordinate for your " + i + " cat: ");
-            int x = input.nextInt();
             System.out.print("enter the Y coordinate for your " + i + " cat: ");
+            int x = input.nextInt();
+            System.out.print("enter the X coordinate for your " + i + " cat: ");
             int y = input.nextInt();
 
             if((x >= 0 && x < rows) && (y >= 0 && y < cols) && (grid[x][y] == " "))
