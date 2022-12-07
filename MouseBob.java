@@ -1,18 +1,29 @@
 import javax.swing.*;
+import java.awt.event.KeyListener;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener; /*You must import this in your mouseListener!*/
 import java.awt.event.MouseMotionListener; 
 
-public class MouseBob extends JPanel implements Runnable ,MouseListener, MouseMotionListener
+public class MouseBob extends JPanel implements Runnable ,MouseListener, MouseMotionListener, KeyListener
 {
 
 	private int mouse_x, mouse_y; /*these will store the location of Mouse cursor, with respect to the window, not the screen */
 	private String mouse_button; /*this will store which button is clicked*/
 	
 	//private ArrayList<Bob> bobs;/*This is where we are going to put the Bobs*/
-	
+	public KeyBox( )
+	{
+		key = "NO KEY PRESSED YET";
+
+		keys_typed = "";
+
+		addKeyListener( this ); /*all keyListeners must have this in the constructor*/
+
+		setFocusable( true );
+	}
+
 	public MouseBob ()
 	{
 		setBackground(Color.WHITE);
@@ -29,12 +40,11 @@ public class MouseBob extends JPanel implements Runnable ,MouseListener, MouseMo
 		new Thread(this).start(); /*You have to start a new Thread in a Runnable */
 	}
 
+
 	public void paintComponent( Graphics window )
 	{
-		//window.setColor(Color.BLACK);
-		//window.fillRect( 0,0, 800,600);
 		Graphics2D g2 = (Graphics2D) window;
-
+		/*
 
 		Image board = Toolkit.getDefaultToolkit().getImage("board.png");
 		g2.drawImage(board, 0, 0, 1000, 1000, this);
@@ -57,6 +67,24 @@ public class MouseBob extends JPanel implements Runnable ,MouseListener, MouseMo
 		Image fishHit = Toolkit.getDefaultToolkit().getImage("fishHit.png");
 		g2.drawImage(fishHit, 100, 0, 100, 100, this);
 
+`
+
+		Image board = Toolkit.getDefaultToolkit().getImage("startscreen.png");
+		g2.drawImage(board, 0, 0, 1000, 1000, this);
+*/
+		window.drawString( "Please type something!", 250, 100 );
+
+		if(keys_typed.length()!=0)
+		{
+			window.setColor(Color.black);
+			window.fillRect(90, 130, keys_typed.length()*7 + 20, 30);
+		}
+
+		window.setColor(Color.green);
+		window.drawString( keys_typed, 100, 150 );
+
+		window.setColor(new Color( 100, 0, 100 ));
+		window.drawString( key, 250, 200 );
 		window.setColor(Color.WHITE);
 		window.drawString("Mouse  coordinates " + "(" + MouseInfo.getPointerInfo().getLocation().x + "   " + MouseInfo.getPointerInfo().getLocation().y + ")", 250, 30 );
 		
