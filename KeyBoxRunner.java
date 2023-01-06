@@ -5,6 +5,7 @@ public class KeyBoxRunner extends JFrame
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 1000;
 
+
     public KeyBoxRunner()
     {
         super("Cat-tle Ship!!");
@@ -22,7 +23,8 @@ public class KeyBoxRunner extends JFrame
     public static void main( String args[] )
     {
         KeyBoxRunner run = new KeyBoxRunner();
+
+    }
         //MouseBobRunner run2 = new MouseBobRunner();
 
     }
-}
